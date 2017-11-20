@@ -1,5 +1,5 @@
 drop table if exists student;
-create table student(rollno varchar(20), name varchar(20), password varchar(20), clas varchar(20), primary key(rollno, clas));
+create table student(rollno varchar(20), name varchar(20), clas varchar(20), primary key(rollno, clas));
 
 drop table if exists act;
 create table act( aid int, activity varchar(20), activitylevel varchar(20) default 'No Level', points int, primary key(activity,activitylevel,points));
