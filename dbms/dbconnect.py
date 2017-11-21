@@ -46,17 +46,26 @@ def fetchfac():
 	#con6.close()
 	#return data
 
-#def insertstudact(activity,activitylevel,point):
-	#con7 = sqlite3.connect(DATABASE)
-	#cur7 = con7.cursor()
-	#cur7.execute("INSERT INTO studact (rollno,aid) values (?,?)", (rollno,aid))
-	#con7.commit()
-	#con7.close()
+def insertstudact(rollno,aid):
+	con7 = sqlite3.connect(DATABASE)
+	cur7 = con7.cursor()
+	cur7.execute("INSERT INTO studact (rollno,aid) values (?,?)", (rollno,aid))
+	con7.commit()
+	con7.close()
 
-#def fetchstudact(#param):
-	#con8 = sqlite3.connect(DATABASE)
-	#cur8 = con8.cursor()
-	#cur8.execute("SELECT rollno,aid from studact")#change this to a function that returns a given student's activity details
-	#data=cur8.fetchall()
-	#con8.close()
-	#return data
+
+def fetchstudact(roll):
+	con8 = sqlite3.connect(DATABASE)
+	cur8 = con8.cursor()
+	cur8.execute("SELECT activity,activitylevel,points from act,studact where act.aid=studact.aid and rollno=roll")
+	data=cur8.fetchall()
+	con8.close()
+	return data
+
+def sump(roll):
+	con9 = sqlite3.connect(DATABASE)
+	cur9 = con9.cursor()
+	cur9.execute("SELECT sum(points) as sum from studact,act where act.aid=studact.aid and rollno=roll")
+	data=cur9.fetchall()
+	con9.close()
+	return data

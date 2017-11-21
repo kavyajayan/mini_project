@@ -1,7 +1,8 @@
 import dbconnect
 #from passlib.hash import pbkdf2_sha256
-from flask import Flask, render_template, redirect, request
+from flask import Flask, flash, render_template, redirect, request
 app = Flask(__name__)
+app.secret_key = 'random string'
 
 @app.route('/', methods=['GET','POST'])
 def index():
@@ -35,7 +36,7 @@ def loginstudent():
 #def view():
 	#if request.method == 'GET':
 		#datas = fetchstudact(rollno)
-		#return render_template('/view')#pass datas)
+		#return render_template('/view'),lists=datas)
 
 @app.route('/loginfaculty', methods=['GET','POST'])
 def loginfaculty():
@@ -59,21 +60,29 @@ def loginfaculty():
 			if flagf2==0:
 				return render_template('loginfaculty.html', msg="Invalid password")
 			else:
-				return ("Successfully logged in!")
+				facid=request.form['facid']
+				return render_template('facultymain.html', facid=facid)
 	else:
 			return render_template('loginfaculty.html', msg="")
 
 
-#@app.route('/facultyhome', methods=['GET', 'POST'])
-#def facultyhome():
-	#if request.method == 'POST':
+@app.route('/facultymain/<facid>', methods=['POST'])
+def facultymain(facid):
+	if request.method == 'POST':
+		if 'actsubmit' in request.form:
+			if facid=="1":
+				return ("successfull")
 		#if view in request.form:
 			#return redirect("/view/"+request.form['rollno'])
-	#	if actsubmit in request.form:
-		#	insertstudact(request.form['rollno'], request.form['actid'])
-			#return render_template('/facultyhome')
-#	else:
-	#	return render_template('/facultyhome')
+		#if 'actsubmit' in request.form:
+			#dbconnect.insertstudact(request.form['regno'], request.form['actid'])
+			#flash('Student activity successfully inserted!')
+			#return  render_template('facultymain.html')
+
+@app.route('/facultymain', methods=['GET'])
+def facultymain():
+	if request.method=='GET':
+		render_template('facultymain')
 
 if __name__== '__main__':
 	app.debug = True
