@@ -75,11 +75,12 @@
     <input type="number" name="actid" min=1 max=10>
     <button type="submit" name="actsubmit">SUBMIT</button>
     <div>
-      {% with message = get_flashed_messages() %}
+    <!--  {% with message = get_flashed_messages() %}
         {% if message %}
               {{ message }}
         {% endif %}
-     {% endwith %}
+     {% endwith %}-->
+     {{mess}}
    </div>
   </form>
   </body>

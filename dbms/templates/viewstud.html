@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <title>Student activity details</title>
+  </head>
+  <body>
+    <form action="/viewstud" method="POST">
+    <button type="submit" name="viewstud">View</button>
+    {% for name in names %}
+      <br>
+      {{name}}
+    {% endfor %}
+    <br>
+    {% for level in levels %}
+      <br>
+      {{level}}
+    {% endfor %}
+    <br>
+    {% for point in points %}
+      <br>
+      {{point}}
+    {% endfor %}
+    </form>
+  </body>
+</html>

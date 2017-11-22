@@ -54,12 +54,28 @@ def insertstudact(rollno,aid):
 	con7.close()
 
 
-def fetchstudact(roll):
+def fetchstudactname(rollno):
 	con8 = sqlite3.connect(DATABASE)
 	cur8 = con8.cursor()
-	cur8.execute("SELECT activity,activitylevel,points from act,studact where act.aid=studact.aid and rollno=roll")
+	cur8.execute("SELECT activity from act,studact where act.aid=studact.aid and rollno=rollno")
 	data=cur8.fetchall()
 	con8.close()
+	return data
+
+def fetchstudactlevel(rollno):
+	con11 = sqlite3.connect(DATABASE)
+	cur11 = con11.cursor()
+	cur11.execute("SELECT activitylevel from act,studact where act.aid=studact.aid and rollno=rollno")
+	data=cur11.fetchall()
+	con11.close()
+	return data
+
+def fetchstudactpoints(rollno):
+	con12 = sqlite3.connect(DATABASE)
+	cur12 = con12.cursor()
+	cur12.execute("SELECT points from act,studact where act.aid=studact.aid and rollno=rollno")
+	data=cur12.fetchall()
+	con12.close()
 	return data
 
 def sump(roll):
@@ -68,4 +84,12 @@ def sump(roll):
 	cur9.execute("SELECT sum(points) as sum from studact,act where act.aid=studact.aid and rollno=roll")
 	data=cur9.fetchall()
 	con9.close()
+	return data
+
+def checkfac(facid):
+	con10 = sqlite3.connect(DATABASE)
+	cur10 = con10.cursor()
+	cur10.execute("SELECT rollno,student.clas from student,faculty where facid=facid and faculty.clas=student.clas")
+	data=cur10.fetchall()
+	con10.close()
 	return data
